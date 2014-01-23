@@ -23,12 +23,11 @@
 ###############################################################################
 # Basic Firewall rules for web port
 ###############################################################################
+iptables --flush
 iptables -A INPUT -p tcp -m tcp --sport 80 -j ACCEPT
-iptables -A OUTPUT -p tcp -m tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --sport 443 -j ACCEPT
-iptables -A OUTPUT -p tcp -m tcp --dport 443 -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --sport 8080 -j ACCEPT
-iptables -A OUTPUT -p tcp -m tcp --dport 8080 -j ACCEPT
+iptables -P OUTPUT ACCEPT
 iptables-save | sudo tee /etc/sysconfig/iptables
 service iptables restart
 
