@@ -20,6 +20,21 @@
 # *
 #*/
 
+###############################################################################
+# Basic Firewall rules for web port
+###############################################################################
+iptables -A INPUT -p tcp -m tcp --sport 80 -j ACCEPT
+iptables -A OUTPUT -p tcp -m tcp --dport 80 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --sport 443 -j ACCEPT
+iptables -A OUTPUT -p tcp -m tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --sport 8080 -j ACCEPT
+iptables -A OUTPUT -p tcp -m tcp --dport 8080 -j ACCEPT
+iptables-save | sudo tee /etc/sysconfig/iptables
+service iptables restart
+
+###############################################################################
+# Puppet Modules
+###############################################################################
 if [[ ! -d "/etc/puppet/modules/apache" ]]; then
     puppet module install puppetlabs/apache
 fi

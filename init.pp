@@ -56,18 +56,3 @@ php::module { "pgsql": }
 php::module { "pdo": }
 php::module { "common": }
 php::module { "devel": }
-
-###############################################################################
-# IPTables
-###############################################################################
-resources { "firewall":
-  purge => true
-}
-
-class { 'firewall': }
-
-firewall { '100 allow http and https access':
-  port   => [80, 443],
-  proto  => tcp,
-  action => accept,
-}
